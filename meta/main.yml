@@ -1,0 +1,29 @@
+galaxy_info:
+  author: Nho Luong
+  description: Ansible role for installating terraform
+  company: nholuongut
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Alpine
+      versions:
+        - all
+    - name: Archlinux
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - cloud
+    - infrastructure
+    - terragrunt
+    - gruntwork
+dependencies: []

@@ -1,0 +1,27 @@
+---
+# defaults file for ansible-role-terragrunt
+
+##############################
+# Terragrunt version 
+##############################
+# By default, module will download last version
+# To specify a version, use this below param
+# terragrunt_install_version: vX.X.X
+
+###############################################
+# Download information - Modify only if needed
+###############################################
+# Directory where executable will be downloaded before installation
+terragrunt_download_location: /tmp
+# Url to terragrunt binarie
+terragrunt_url: "https://github.com/nholuongut/terragrunt/releases/download/{{ terragrunt_install_version }}/terragrunt_linux_amd64"
+# Downloaded file name 
+terragrunt_downloaded_file_name: terragrunt_linux_amd64
+
+###############################################
+# Installation information - Modify only if needed
+###############################################
+# Path where to install terraform
+terragrunt_execution_path: /usr/local/bin
+# Execution file name for terraform
+terragrunt_execution_file_name: terragrunt

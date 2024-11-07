@@ -1,0 +1,10 @@
+##################################
+# Check requirements before insall
+##################################
+- name: Set Required Package
+  set_fact: packages="['bash','curl']"
+
+- name: Ensure dependancies presence's
+  package:
+    name: "{{ packages }}"
+    state: present

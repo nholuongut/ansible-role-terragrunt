@@ -1,0 +1,8 @@
+#####################################
+# Remove current terragrunt executable
+#####################################
+- name: "Delete existing terragrunt version if it's different."
+  file:
+    path: "{{ terragrunt_execution_path }}/{{ terragrunt_execution_file_name }}"
+    state: absent
+  become: true

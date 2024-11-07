@@ -1,0 +1,62 @@
+---
+# tasks file for ansible-role-terragrunt
+
+# Check requirement before installation
+- include: check-requirements.yml
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-requirements
+
+# Get last version
+- name: Get last terragrunt version
+  shell: |
+    set -o pipefail
+    curl https://api.github.com/repos/nholuongut/terragrunt/releases | grep tag_name | head -n 1 | cut -d '"' -f 4
+  args:
+    executable: /bin/bash
+    warn: False
+  failed_when: False
+  changed_when: False
+  register: last_terragrunt_version
+  when: terragrunt_install_version is not defined
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-update
+
+# Init version if not defined
+- name: Init terragrunt version
+  set_fact:
+    terragrunt_install_version: "{{ last_terragrunt_version.stdout }}"
+  when: terragrunt_install_version is not defined
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-update
+
+# Check current version
+- name: Check current terragrunt Version
+  shell: |
+    set -o pipefail
+    terragrunt --version | head -n 1 | grep {{ terragrunt_install_version }}
+  args:
+    executable: /bin/bash
+  failed_when: False
+  changed_when: False
+  register: current_terragrunt_version
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-update
+
+# Remove current terraform executable if not same version
+- include: remove.yml
+  when: >
+    current_terragrunt_version.stdout is defined
+    and terragrunt_install_version not in current_terragrunt_version.stdout
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-update
+
+# Install Terraform
+- include: install.yml
+  tags:
+    - terragrunt-install-all
+    - terragrunt-install-update
